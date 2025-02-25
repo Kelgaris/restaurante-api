@@ -14,9 +14,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/admin', require('./routes/admin'));
-app.use('/api/mesas', require('./routes/mesas'));
-app.use('/api/pedidos', require('./routes/pedidos'));
+
 
 const PORT = process.env.PORT || 5000;
 
