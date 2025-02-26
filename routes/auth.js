@@ -99,7 +99,7 @@ router.post('/nuevaMesa', async (req, res) => {
 });
 
 
-// Ruta para obtener todos los pedidos
+// Ruta para obtener todas las mesas
 router.get('/mesas', async (req, res) => {
     try {
         const mesas = await Mesas.find();
@@ -107,6 +107,48 @@ router.get('/mesas', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
+
+// Ruta para eliminar un pedido
+router.post('/pedidos/eliminar', async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({ msg: "ID es requerido" });
+        }
+
+        const pedidoEliminado = await Pedidos.findByIdAndDelete(id);
+
+        if (!pedidoEliminado) {
+            return res.status(404).json({ msg: "Pedido no encontrado" });
+        }
+
+        res.json({ msg: "Pedido eliminado correctamente" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error en el servidor" });
+    }
+});
+
+// Ruta para eliminar una mesa
+router.post('/mesas/eliminar', async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({ msg: "ID es requerido" });
+        }
+
+        const mesaEliminada = await Mesas.findByIdAndDelete(id);
+
+        if (!mesaEliminada) {
+            return res.status(404).json({ msg: "Mesa no encontrada" });
+        }
+
+        res.json({ msg: "Mesa eliminada correctamente" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error en el servidor" });
     }
 });
 
