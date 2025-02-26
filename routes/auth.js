@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Pedidos = require('../models/pedidos');
+const Mesas = require('../models/mesas');
 
 // Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
@@ -76,5 +77,38 @@ router.get('/pedidos', async (req, res) => {
         res.status(500).json({ msg: 'Error en el servidor' });
     }
 });
+
+
+// Ruta para registrar un nueva mesa
+router.post('/nuevaMesa', async (req, res) => {
+    const { usuario, nombre, apellidos, telefono, cantidadPersonas, fecha, hora } = req.body;
+
+    try {
+        if (!usuario || !nombre || !apellidos || !telefono || !cantidadPersonas || !fecha || !hora){
+            return res.status(400).json({ msg: 'Datos inválidos.' });
+        }
+
+        const nuevaMesa = new Mesas({ usuario, nombre, apellidos, telefono, cantidadPersonas, fecha, hora});
+        await nuevaMesa.save();
+
+        res.json({ msg: 'Mesa registrada correctamente', mesa: nuevaMesa });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
+
+
+// Ruta para obtener todos los pedidos
+router.get('/mesas', async (req, res) => {
+    try {
+        const mesas = await Mesas.find();
+        res.json(mesas);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
+
 
 module.exports = router;
