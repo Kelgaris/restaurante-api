@@ -4,10 +4,6 @@ const router = express.Router();
 const User = require('../models/user');
 const Pedidos = require('../models/pedidos');
 const Mesas = require('../models/mesas');
-require('dotenv').config();
-
-const mongoURI = process.env.MONGO_URI;
-console.log(mongoURI);
 
 
 // Ruta para iniciar sesión
