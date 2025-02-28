@@ -80,8 +80,8 @@ router.get('/pedidos', async (req, res) => {
 });
 
 // Ruta para obtener pedidos filtrados por usuario
-router.get('/pedidos/filtro', async (req, res) => {
-    const { usuario } = req.query;
+router.post('/pedidos/filtro', async (req, res) => {
+    const { usuario } = req.body;  // Cambiar de req.query a req.body
 
     try {
         let query = {};
