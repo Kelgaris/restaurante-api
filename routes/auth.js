@@ -79,6 +79,26 @@ router.get('/pedidos', async (req, res) => {
     }
 });
 
+// Ruta para obtener pedidos filtrados por usuario
+router.get('/pedidos/filtro', async (req, res) => {
+    const { usuario } = req.query;
+
+    try {
+        let query = {};
+
+        if (usuario) {
+            query.usuario = usuario;
+        }
+
+        const pedidos = await Pedidos.find(query);
+        res.json(pedidos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
+
+
 
 // Ruta para registrar un nueva mesa
 router.post('/nuevaMesa', async (req, res) => {
@@ -110,6 +130,26 @@ router.get('/mesas', async (req, res) => {
         res.status(500).json({ msg: 'Error en el servidor' });
     }
 });
+
+// Ruta para obtener mesas filtradas por usuario
+router.get('/mesas/filtro', async (req, res) => {
+    const { usuario } = req.query;
+
+    try {
+        let query = {};
+
+        if (usuario) {
+            query.usuario = usuario;
+        }
+
+        const mesas = await Mesas.find(query);
+        res.json(mesas);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
+
 
 // Ruta para eliminar un pedido
 router.post('/pedidos/eliminar', async (req, res) => {
