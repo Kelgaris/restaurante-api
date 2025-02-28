@@ -131,9 +131,9 @@ router.get('/mesas', async (req, res) => {
     }
 });
 
-// Ruta para obtener mesas filtradas por usuario
-router.get('/mesas/filtro', async (req, res) => {
-    const { usuario } = req.query;
+
+router.post('/mesas/filtro', async (req, res) => {
+    const { usuario } = req.body;
 
     try {
         let query = {};
@@ -149,7 +149,6 @@ router.get('/mesas/filtro', async (req, res) => {
         res.status(500).json({ msg: 'Error en el servidor' });
     }
 });
-
 
 // Ruta para eliminar un pedido
 router.post('/pedidos/eliminar', async (req, res) => {
